@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<div  th:replace="admin_fragments/admin_header :: header" ></div>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black; 
+        }
+    </style>
+<body>
+	<div  th:replace="admin_fragments/admin_navbar :: admin_navbar" ></div>
+	
+	<div class="row">
+		<div class="col-2">
+			<div  th:replace="admin_fragments/admin_sidebar :: admin_sidebar" ></div>
+		</div>
+		<div class="col-10">
+			 <h2 class="text-center mt-5 h-title">Quản lý tin tức</h2>
+    
+			<div class="mx-auto" style="width:90%;" >
+				<a th:href="@{/admin/news/new}" class="mb-5 fs-5 fw-bold">Thêm tin tức mới</a>
+				<div th:if="${message}" class="alert alert-success text-center">
+					[[${message}]]
+				</div>
+				<table class="table table-border w-100" style="background:rgba(9, 40, 112, 0.05)">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">ID</th>
+							<th scope="col">Tiêu đề</th>
+							<th scope="col">Nội dung</th>
+							<th scope="col">Hình ảnh</th>
+							<th> </th>
+						</tr>
+					</thead>
+					<tbody>
+					    <th:block th:each="news : ${listNews}">
+					        <tr>
+					            <td class="text-center align-middle">[[${news.newsID}]]</td>
+					            <td th:utext=${news.title}></td>
+					            <td>[[${news.content}]]</td>
+					            <td class="align-middle" style="width:10%"><img th:src="@{'/img/news/'+${news.image}}" class="w-100"></img></td>
+					            <td class="h6 fw-bold text-center w-25 align-middle">
+					                <a th:href="@{'/admin/news/update/' + ${news.newsID}}" class="me-3">Chỉnh sửa</a>
+					                <a th:href="@{'/admin/news/hidden/' + ${news.newsID}}" class="me-3">Ẩn</a>
+					            </td>
+					        </tr>
+					    </th:block>
+					</tbody>
+
+				</table>	
+				<a th:href="@{/admin/news/listHidden}" class="fs-5 fw-bold">Phục hồi tin tức</a>			
+			</div>
+		</div>
+	</div>	
+
+	<div  th:replace="admin_fragments/admin_footer :: admin_footer" ></div>
+	
+</body>
+</html>

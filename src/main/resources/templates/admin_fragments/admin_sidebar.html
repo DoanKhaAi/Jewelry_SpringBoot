@@ -1,0 +1,43 @@
+<div th:fragment="admin_sidebar">
+<!-- Sidebar -->
+
+<div  style="background-color: rgba(0, 100, 0, 0.1);">
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
+			
+			<hr class="sidebar-divider" >
+            <li class="nav-item active">
+                <a class="nav-link ms-4" th:href="@{/admin/dashboard}" style="color:black; font-weight:800">
+                    <span>TRANG CHỦ ADMIN</span></a>
+            </li>
+            
+             <hr class="sidebar-divider">
+            <li class="nav-item active fw-bold "  >
+                <a class=" ms-4" th:href="@{/admin/activity/list}">
+                    <span>Quản lý Hoạt động</span></a>
+            </li>
+			
+            <hr class="sidebar-divider">
+            <li class="nav-item active fw-bold "  >
+                <a class=" ms-4" th:href="@{/admin/user/list}" >
+                    <span>Quản lý Người dùng</span></a>
+            </li>
+            
+            <hr class="sidebar-divider">
+            <li class="nav-item active fw-bold "  >
+                <a class="ms-4" th:href="@{/admin/payment/list}" >
+                    <span>Quản lý Thanh toán</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <li class="nav-item active fw-bold" >
+                <a class="ms-4" th:href="@{/admin/children/list}">
+                    <span>Quản lý Trẻ em</span></a>
+            </li>
+             <hr class="sidebar-divider">
+            
+        </ul>
+</div>
+        
+
+</div>

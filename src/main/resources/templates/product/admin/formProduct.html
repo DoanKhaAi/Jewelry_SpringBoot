@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<div  th:replace="admin_fragments/admin_header :: header" ></div>
+
+<body>
+	<div  th:replace="admin_fragments/admin_navbar :: admin_navbar" ></div>
+	
+	<div class="row">
+		<div class="col-2">
+			<div  th:replace="admin_fragments/admin_sidebar :: admin_sidebar" ></div>
+		</div>
+		<div class="col-10">
+		<h2 class="text-center mt-5 h-title">[[${pageTitle}]]</h2>
+			<div th:if="${error}" class="alert alert-danger text-center">
+					[[${error}]]
+			</div>
+			<form th:action="@{/admin/product/save}" method="post" th:object="${product}"
+				style="width:80%;margin:0 auto" enctype="multipart/form-data">
+				<div class="border rouded p-3">
+					<input type=hidden th:field="*{productID}"/>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Tên sản phẩm:</label>
+						<div class="col-sm-10">
+							<input class="w-100"  type="text" th:field="*{productName}" required maxlength="50"/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold" for="productType">Loại sản phẩm:</label>
+						<div class="col-sm-10">
+							<select  class="w-100 mt-2" id="productType" th:field="*{productType.productTypeID}" required>
+									<option value=""selected>--Chọn loại sản phẩm--</option>
+		            				<option th:each="productType : ${listProductTypes}" 
+					                    th:value="${productType.productTypeID}" 
+					                    th:text="${productType.productTypeName}"
+					                    th:selected="${productType.productTypeID} == *{productType.productTypeID}">  
+		            				</option>
+		        			</select>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Giá sản phẩm:</label>
+						<div class="col-sm-10">
+							<input class="w-100" type="number" min=0 th:field="*{productPrice}"
+									 placeholder="Giá sản phẩm phải là số tự nhiên" required/>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Số lượng:</label>
+						<div class="col-sm-10">
+							<input class="w-100" type="number" min=0 th:field="*{productQuantity}"
+									 placeholder="Số lượng phải là số tự nhiên" required/>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Mô tả:</label>
+						<div class="col-sm-10">
+							<textarea class="w-100" th:field="*{productDescription}" cols=10 rows=3 maxlength="1000" required></textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Ảnh sản phẩm:</label>
+						<div class="col-sm-10">
+							<input type="file" class="form-control" name="imageFile" accept=".jpg, .jpeg, .png">
+						</div>
+					</div>
+					<div th:if="${product.productImage != null}" class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold"> Ảnh hiện tại:</label>
+						<div class="col-sm-10">
+							 <img class="w-25 mt-2" th:src="@{'/img/product/'+${product.productImage}}"></img>
+						</div>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary m-2">Lưu</button>
+						<button type="button" class="btn btn-secondary m-2" style="background-color:gray">
+							<a th:href="@{/admin/product/list}" style="color:white;">Hủy</a>	
+						</button>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div  th:replace="admin_fragments/admin_footer :: admin_footer" ></div>
+	
+</body>
+</html>

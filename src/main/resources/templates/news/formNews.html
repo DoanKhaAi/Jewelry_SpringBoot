@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<div  th:replace="admin_fragments/admin_header :: header" ></div>
+
+<body>
+	<div  th:replace="admin_fragments/admin_navbar :: admin_navbar" ></div>
+	
+	<div class="row">
+		<div class="col-2">
+			<div  th:replace="admin_fragments/admin_sidebar :: admin_sidebar" ></div>
+		</div>
+		<div class="col-10">
+		<h2 class="text-center mt-5 h-title">[[${pageTitle}]]</h2>
+			<form id="form" th:action="@{/admin/news/save}" method="post" th:object="${news}"
+				style="width:80%;margin:0 auto" enctype="multipart/form-data">
+				<div class="border rouded p-3">
+					<input type=hidden th:field="*{newsID}"/>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Tiêu đề:</label>
+						<div class="col-sm-10">
+							<textarea id="title" th:field="*{title}" required maxlength="1000"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Nội dung:</label>
+						<div class="col-sm-10">
+							<textarea class="w-100 mt-2" th:field="*{content}" rows=3 required maxlength="1000"></textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold">Hình ảnh:</label>
+						<div class="col-sm-10">
+							<input type="file" class="form-control" name="imageFile" accept=".jpg, .jpeg, .png">
+						</div>
+					</div>
+					<div th:if="${news.image != null}" class="form-group row">
+						<label class="col-sm-2 col-form-label fw-bold"> Ảnh hiện tại:</label>
+						<div class="col-sm-10">
+							 <img class="w-25 mt-2" th:src="@{'/img/news/'+${news.image}}"></img>
+						</div>
+					</div>
+					<div class="text-center">
+						<button type="submit" class="btn btn-primary m-2">Lưu</button>
+						<button type="button" class="btn btn-secondary m-2" style="background-color:gray">
+							<a th:href="@{/admin/news/list}" style="color:white;">Hủy</a>	
+						</button>
+						
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<script>
+        window.onload = function() {
+            if (typeof CKEDITOR !== 'undefined') {
+                CKEDITOR.replace('title',{
+                    toolbar: [
+                        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'] },
+                        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', 'RemoveFormat'] },
+                        { name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'] },
+                        { name: 'colors', items: ['TextColor', 'BGColor'] },
+                        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', '-', 'Subscript', 'Superscript'] },
+                        { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                        { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+                        { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak'] },
+                        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+                        { name: 'about', items: ['About'] }
+                    ]
+                });
+                
+                document.getElementById('form').onsubmit = function(event) {
+                    // Lấy nội dung của CKEditor và loại bỏ các thẻ HTML
+                    var title = CKEDITOR.instances['title'].getData()
+            
+                    if (title.length > 1000) {
+                        alert('Tiêu đề quá dài!');
+                        event.preventDefault();  // Ngăn form submit nếu điều kiện không thỏa mãn
+                    }
+                };
+            } else {
+                console.error('CKEDITOR bi loi roi');
+            }
+        };
+    </script>
+	
+	<div  th:replace="admin_fragments/admin_footer :: admin_footer" ></div>
+	
+</body>
+</html>

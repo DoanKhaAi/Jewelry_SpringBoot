@@ -10,4 +10,47 @@
 
     <!-- Template Javascript -->
     <script th:src="@{/js/main.js}"></script>
+    
+    
+    
+    <script>
+			    document.getElementById('toggle-product-management').addEventListener('click', function() {
+			        var menu = document.getElementById('product-management-menu');
+			        
+			        if (menu.style.display === "none" || menu.style.display === "") {
+			            menu.style.display = "block";  
+			        } else {
+			            menu.style.display = "none"; 
+			        }
+			    });
+			    document.getElementById("toggle-news-management").addEventListener("click", function() {
+			        var menu = document.getElementById("news-management-menu");
+			        if (menu.style.display === "none") {
+			            menu.style.display = "block";
+			        } else {
+			            menu.style.display = "none";
+			        }
+			    });
+
+			    document.getElementById("toggle-role-management").addEventListener("click", function() {
+			        var menu = document.getElementById("role-management-menu");
+			        if (menu.style.display === "none") {
+			            menu.style.display = "block";
+			        } else {
+			            menu.style.display = "none";
+			        }
+			    });
+			    
+			    document.getElementById("toggle-product-type-management").addEventListener("click", function() {
+			        var menu = document.getElementById("product-type-management-menu");
+			        if (menu.style.display === "none") {
+			            menu.style.display = "block";
+			        } else {
+			            menu.style.display = "none";
+			        }
+			    });
+
+			    
+	</script>
+    
 </div>

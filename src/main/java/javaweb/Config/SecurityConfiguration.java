@@ -12,8 +12,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javaweb.Handler.AuthenticationSuccessHandler;
+import javaweb.Handler.CustomAuthenticationFailureHandler;
+import javaweb.Jwt.JwtAuthenticationFilter;
 import javaweb.Service.MyUserService;
 
 
@@ -25,13 +28,17 @@ public class SecurityConfiguration {
 	@Lazy
 	private MyUserService userDetailService; 
 	
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter; 
+	
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(registry -> {
-                	registry.requestMatchers("/scss/**", "/js/**", "/img/**", "/lib/**", "/webjars/**").permitAll();
+                	registry.requestMatchers("/scss/**", "/js/**", "/img/**", "/lib/**", "/webjars/**", "/static/**","/api/**", "/product", "/login").permitAll();
                     registry.requestMatchers("/admin/**").hasRole("ADMIN");
+                    registry.requestMatchers("/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
                 })
                 
@@ -39,7 +46,7 @@ public class SecurityConfiguration {
                     httpSecurityFormLoginConfigurer
                     .loginPage("/login")
                     .successHandler(new AuthenticationSuccessHandler())
-                   // .failureHandler(new CustomAuthenticationFailureHandler())
+                    .failureHandler(new CustomAuthenticationFailureHandler())
                     .permitAll();
                 })
                 .logout(logoutConfigurer -> {
@@ -50,10 +57,11 @@ public class SecurityConfiguration {
                     .deleteCookies("JSESSIONID") 
                     .permitAll();
                 })
-                
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) 
                 .build();
     }
 	
+
 	@Bean
 	public UserDetailsService userDetailService() {
 		return userDetailService;
@@ -71,5 +79,6 @@ public class SecurityConfiguration {
 	public PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
+	
 	
 }

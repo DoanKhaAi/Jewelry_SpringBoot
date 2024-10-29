@@ -9,6 +9,8 @@ import javaweb.Entity.News;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long>{
-	List<News> findByEnabledTrue();
+	
+	List<News> findByEnabledTrueOrderByNewsIDDesc();
+	
 	List<News> findByEnabledFalse();
 }

@@ -1,5 +1,6 @@
 package javaweb.Entity;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,9 +37,10 @@ public class Product {
 	@Column(name="enabled", nullable=false)
 	private Boolean enabled;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
+
 
 	public Product() {
 		
@@ -91,6 +93,7 @@ public class Product {
 	public void setProductDescription(String productDescription) {
 		this.productDescription = productDescription;
 	}
+	
 
 	public Boolean getEnabled() {
 		return enabled;
@@ -107,8 +110,6 @@ public class Product {
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
 	}
-	
-	
 
-	
+
 }

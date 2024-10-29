@@ -2,6 +2,8 @@ package javaweb.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,6 +29,7 @@ public class ProductType {
 	private Boolean enabled;
 	
 	@OneToMany(mappedBy = "productType", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore //Em đánh dấu để khi API trả về JSON thì không trả về kiểu lặp vô tận
     private List<Product> products;
 	
 	public ProductType() {

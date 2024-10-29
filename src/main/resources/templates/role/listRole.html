@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<div  th:replace="admin_fragments/admin_header :: header" ></div>
+<style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black; 
+        }
+    </style>
+<body>
+	<div  th:replace="admin_fragments/admin_navbar :: admin_navbar" ></div>
+	
+	<div class="row">
+		<div class="col-2">
+			<div  th:replace="admin_fragments/admin_sidebar :: admin_sidebar" ></div>
+		</div>
+		<div class="col-10">
+			 <h2 class="text-center mt-5 h-title">Quản lý quyền</h2>
+    
+			<div class="mx-auto" style="width:90%;" >
+				<a th:href="@{/admin/role/new}" class="mb-5 fs-5 fw-bold">Thêm quyền mới</a>
+				<div th:if="${message}" class="alert alert-success text-center">
+					[[${message}]]
+				</div>
+				 <table class="table table-border w-100" style="background:rgba(9, 40, 112, 0.05)">
+				    <thead>
+				        <tr class="text-center">
+				            <th scope="col">ID</th>
+				            <th scope="col">Tên quyền</th>
+				            <th> </th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <th:block th:each="role : ${listRoles}">
+				            <tr>
+				                <td class="text-center align-middle">[[${role.roleID}]]</td>
+				                <td class="align-middle text-center">[[${role.roleName}]]</td>
+				                <td class="h6 fw-bold text-center w-25 align-middle">
+				                    <a th:href="@{'/admin/role/update/' + ${role.roleID}}" class="me-3">Chỉnh sửa quyền</a>
+				                </td>
+				            </tr>
+				        </th:block>
+				    </tbody>
+				</table>
+	
+			</div>
+		</div>
+	</div>	
+
+	<div  th:replace="admin_fragments/admin_footer :: admin_footer" ></div>
+	
+</body>
+</html>

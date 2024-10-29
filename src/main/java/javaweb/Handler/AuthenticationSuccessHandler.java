@@ -18,12 +18,13 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
     	HttpSession session = request.getSession();
     	session.setAttribute("loggedInUser", authentication.getPrincipal());
+
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
             setDefaultTargetUrl("/admin/product/list");
         } else {
-            setDefaultTargetUrl("/login");
+            setDefaultTargetUrl("/product");
         }
         super.onAuthenticationSuccess(request, response, authentication);
     }

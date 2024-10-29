@@ -1,9 +1,13 @@
 package javaweb.Entity;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,7 +29,7 @@ public class MyUser {
 	
 	@Column(name="username", unique=true, length=20, nullable=false)
 	private String username;
-		
+	
 	@Column(name="password", length=100, nullable=false)
 	private String password;
 	
@@ -39,12 +44,7 @@ public class MyUser {
 	
 	@Column(name="email", unique=true, nullable=false)
 	private String email;
-	
-	@Column(name="phone", unique=true, nullable=false)
-	private String phone;
-	
-	@Column(length=30, name="image")
-	private String image;
+
 	
 	@ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -52,7 +52,12 @@ public class MyUser {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+    private Cart cart;
+	
 	public MyUser() {
 
 	}
@@ -113,21 +118,6 @@ public class MyUser {
 		this.email = email;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
 
 	public Set<Role> getRoles() {
 		return roles;
@@ -136,5 +126,13 @@ public class MyUser {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-		
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+	
 }

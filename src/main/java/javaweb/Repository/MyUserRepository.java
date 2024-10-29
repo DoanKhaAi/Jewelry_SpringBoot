@@ -9,5 +9,9 @@ import javaweb.Entity.MyUser;
 
 @Repository
 public interface MyUserRepository extends JpaRepository<MyUser, Long> {
+	
+	
 	Optional<MyUser> findByUsername(String username);
+
+    MyUser findByEmail(String email);
 }

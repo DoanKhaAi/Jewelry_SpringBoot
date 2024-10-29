@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,14 @@ public class ProductService {
 	public List<Product> listAllTrue() {
         return (List<Product>) repo.findByEnabledTrue();
     }
+	
+	public Page<Product> findAll(Pageable pageable) {
+	        return repo.findByEnabledTrue(pageable);
+	}
+	
+	public Page<Product> findAllByType(Long productTypeID, Pageable pageable) {
+        return repo.findByProductType_ProductTypeID(productTypeID, pageable);
+}
 
     public List<Product> listAllFalse() {
         return (List<Product>) repo.findByEnabledFalse();

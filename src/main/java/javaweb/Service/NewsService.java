@@ -20,7 +20,7 @@ public class NewsService {
 	private NewsRepository repo;
 
 	public List<News> listAllTrue() {
-	    return (List<News>) repo.findByEnabledTrue();
+	    return (List<News>) repo.findByEnabledTrueOrderByNewsIDDesc();
 	}
 
 	public List<News> listAllFalse() {

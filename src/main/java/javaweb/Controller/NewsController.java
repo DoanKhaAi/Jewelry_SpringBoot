@@ -53,7 +53,7 @@ public class NewsController {
 	}
 
 	@PostMapping("/save")
-	public String create(News news, @RequestParam("imageFile") MultipartFile imageFile, RedirectAttributes ra, Model model)
+	public String create(News news, @RequestParam("imageFile") MultipartFile imageFile, RedirectAttributes ra)
 	        				throws IOException {
 	    	service.save(news, imageFile);
 	        ra.addFlashAttribute("message", "Lưu tin tức thành công");

@@ -1,13 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://ww.thymeleaf.org">
+<title>Đăng nhập</title>
+<div  th:replace="admin_fragments/admin_header :: header" ></div>
 <body>
-	
-   
     <div class="container" >
-   		<div class="text-center mx-auto" data-wow-delay="0.1s" style="max-width: 500px;">
-             <h1 class="display-6" style="color: #38761D; ">Đăng nhập</h1>
+   		<div class="text-center mx-auto" data-wow-delay="0.1s" style="max-width: 500px; margin-top:50px">
+             <h1 class="display-6" style="color: #092870; ">ĐĂNG NHẬP</h1>
+
         </div>
   
-	    <div class="mx-auto p-5" style="width: 52%; background: rgba(76, 153, 0, 0.3); border-radius:10%;">
+	    <div class="mx-auto p-5" style="width: 52%; border-radius:10%;">
 	    	<form action="/login" method="post">
+	    	    <div th:if="${param.error}" class="alert alert-danger text-center" role="alert">
+           			<span>Tên đăng nhập hoặc mật khẩu không đúng</span>
+        		</div>
 				<div class="input-group mb-3">
 					<label for="username" class="input-group-text" id="basic-addon1" style="width: 8.1rem">Tên đăng nhập</label> 
 					<input type="text" id="username" name="username" class="form-control" required >
@@ -17,15 +23,14 @@
 					<input type="password" id="password" name="password" class="form-control" required >
 				</div>
 				
-				<div style="display:flex; justify-content:space-between">
-					<p style="font-weight: 600;color: #4A9232" >Bạn chưa có tài khoản? <a href="/register" style="color:blue">Đăng ký</a></p>
-					<input class="btn btn-primary" type="submit" value="Đăng nhập">
-				</div>
+				<input class="btn btn-primary" style="float:right" type="submit" value="Đăng nhập">
 				
 			</form>
 			
 	    </div>
     </div>
 
+	<div  th:replace="admin_fragments/admin_footer :: admin_footer" ></div>
+	
 </body>
 </html>

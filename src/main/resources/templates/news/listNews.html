@@ -42,7 +42,7 @@
 					            <td th:utext=${news.title}></td>
 					            <td>[[${news.content}]]</td>
 					            <td class="align-middle" style="width:10%"><img th:src="@{'/img/news/'+${news.image}}" class="w-100"></img></td>
-					            <td class="h6 fw-bold text-center w-25 align-middle">
+					            <td class="h6 fw-bold text-cente align-middle" style="width:15%">
 					                <a th:href="@{'/admin/news/update/' + ${news.newsID}}" class="me-3">Chỉnh sửa</a>
 					                <a th:href="@{'/admin/news/hidden/' + ${news.newsID}}" class="me-3">Ẩn</a>
 					            </td>
@@ -50,8 +50,7 @@
 					    </th:block>
 					</tbody>
 
-				</table>	
-				<a th:href="@{/admin/news/listHidden}" class="fs-5 fw-bold">Phục hồi tin tức</a>			
+				</table>			
 			</div>
 		</div>
 	</div>	

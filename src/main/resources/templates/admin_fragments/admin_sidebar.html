@@ -2,40 +2,82 @@
 <!-- Sidebar -->
 
 <div  style="background-color: rgba(0, 100, 0, 0.1);">
-	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" >
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" >
 			
 			<hr class="sidebar-divider" >
             <li class="nav-item active">
-                <a class="nav-link ms-4" th:href="@{/admin/dashboard}" style="color:black; font-weight:800">
-                    <span>TRANG CHỦ ADMIN</span></a>
+                <a class="ms-4" th:href="@{/admin/dashboard}" style="font-weight:800">
+                    TRANG CHỦ ADMIN</a>
             </li>
             
-             <hr class="sidebar-divider">
-            <li class="nav-item active fw-bold "  >
-                <a class=" ms-4" th:href="@{/admin/activity/list}">
-                    <span>Quản lý Hoạt động</span></a>
-            </li>
+                <!-- Quản lý tin tức -->
+			<hr class="sidebar-divider">
+			<li class="nav-item active fw-bold">
+			    <div class="ms-4" id="toggle-news-management" style="cursor: pointer;">
+			        <a class="black-title">Quản lý tin tức</a>
+			        <span class="arrow-icon fs-4 align-middle">&#9662;</span>
+			    </div>
+			    <ul class="ms-4" id="news-management-menu" style="display: block; list-style: none; padding-left: 0;">
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/news/list}">Danh sách các tin</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/news/new}">Thêm mới tin</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/news/listHidden}">Phục hồi tin</a></div>
+			    </ul>
+			</li>
 			
             <hr class="sidebar-divider">
-            <li class="nav-item active fw-bold "  >
-                <a class=" ms-4" th:href="@{/admin/user/list}" >
-                    <span>Quản lý Người dùng</span></a>
-            </li>
-            
+			<li class="nav-item active fw-bold">
+			    <div class="ms-4" id="toggle-product-management" style="cursor: pointer;">
+			        <a class="black-title">Quản lý sản phẩm</a>
+			        <span class="arrow-icon fs-4 align-middle">&#9662;</span>
+			    </div>
+			    <ul class="ms-4" id="product-management-menu" style="display: block; list-style: none; padding-left: 0;">
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/product/list}">Danh sách sản phẩm</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/product/new}">Thêm mới sản phẩm</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/product/listHidden}">Phục hồi sản phẩm</a></div>
+			    </ul>
+			</li>
+			           
             <hr class="sidebar-divider">
-            <li class="nav-item active fw-bold "  >
-                <a class="ms-4" th:href="@{/admin/payment/list}" >
-                    <span>Quản lý Thanh toán</span></a>
-            </li>
-            
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <li class="nav-item active fw-bold" >
-                <a class="ms-4" th:href="@{/admin/children/list}">
-                    <span>Quản lý Trẻ em</span></a>
-            </li>
-             <hr class="sidebar-divider">
-            
+			<li class="nav-item active fw-bold">
+			    <div class="ms-4" id="toggle-product-type-management" style="cursor: pointer;">
+			        <a class="black-title">QL loại sản phẩm</a>
+			        <span class="arrow-icon fs-4 align-middle">&#9662;</span>
+			    </div>
+			    <ul class="ms-4" id="product-type-management-menu" style="display: none; list-style: none; padding-left: 0;">
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/productType/list}">Danh sách loại</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/productType/new}">Thêm mới loại</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/productType/listHidden}">Phục hồi loại</a></div>
+			    </ul>
+			</li>
+			            
+        
+			
+			<!-- Quản lý quyền -->
+			<hr class="sidebar-divider">
+			<li class="nav-item active fw-bold">
+			    <div class="ms-4" id="toggle-role-management" style="cursor: pointer;">
+			        <a class="black-title">Quản lý quyền</a>
+			        <span class="arrow-icon fs-4 align-middle">&#9662;</span>
+			    </div>
+			    <ul class="ms-4" id="role-management-menu" style="display: none; list-style: none; padding-left: 0;">
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/role/list}">Danh sách quyền</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/role/new}">Thêm mới quyền</a></div>
+			        <hr class="sidebar-divider">
+			        <div><a class="ms-4" th:href="@{/admin/role/user/list}">Thay đổi quyền</a></div>
+			    </ul>
+			</li> 
+			<hr class="sidebar-divider">  
         </ul>
 </div>
         

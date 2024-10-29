@@ -2,8 +2,12 @@ package javaweb.Controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +32,24 @@ public class ProductController {
     private ProductTypeService serviceProductType;
 
     @GetMapping("/list")
-    public String list(Model model) {
-    	List<Product> listProducts=service.listAllTrue();
-    	model.addAttribute("listProducts",listProducts);
-		return "/product/admin/listProduct";
+    public String list(Model model,  @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size) {
+    	
+    	PageRequest pageable = PageRequest.of(page, size);
+        Page<Product> productPage = service.findAll(pageable);
+        
+        model.addAttribute("productPage", productPage);
+        model.addAttribute("pageNumbers", IntStream.range(0, productPage.getTotalPages()).boxed().collect(Collectors.toList()));
+//    	List<Product> listProducts=service.listAllTrue();
+//    	model.addAttribute("listProducts",listProducts);
+		return "/product/listProduct";
     }
 
     @GetMapping("/listHidden")
     public String listHidden(Model model) {
     	List<Product> listProducts=service.listAllFalse();
     	model.addAttribute("listProducts",listProducts);
-		return "/product/admin/listProductHidden";
+		return "/product/listProductHidden";
     }
     
     @GetMapping("/new")
@@ -46,7 +57,7 @@ public class ProductController {
 		model.addAttribute("product", new Product());
 		model.addAttribute("listProductTypes", serviceProductType.listAllTrue());
 		model.addAttribute("pageTitle", "Thêm sản phẩm mới");
-		return "/product/admin/formProduct";
+		return "/product/formProduct";
 	}
     
     
@@ -56,7 +67,7 @@ public class ProductController {
 			model.addAttribute("product", product);
 			model.addAttribute("listProductTypes", serviceProductType.listAllTrue());
 			model.addAttribute("pageTitle", "Chỉnh sửa sản phẩm (ID: "+id+")");
-			return "/product/admin/formProduct";
+			return "/product/formProduct";
 		
 	} 
     
@@ -66,13 +77,13 @@ public class ProductController {
         String result=service.save(product, imageFile);
         if (result.equals("OK")) {
         	ra.addFlashAttribute("message", "Lưu sản phẩm thành công");
-        	return "redirect:/admin/product/list";
+        	return "redirect:/admin/list";
         }
         else {
         	model.addAttribute("pageTitle", "Thêm mới sản phẩm");
         	model.addAttribute("listProductTypes", serviceProductType.listAllTrue());
         	model.addAttribute("error", "Không được phép để trống hình ảnh sản phẩm");
-        	return "/product/admin/formProduct";
+        	return "/product/formProduct";
         }
 		
     }

@@ -10,6 +10,8 @@ import javaweb.Entity.ProductType;
 
 @Repository
 public interface ProductTypeRepository extends JpaRepository<ProductType, Long>{
+	
 	List<ProductType> findByEnabledTrue();
+	
 	List<ProductType> findByEnabledFalse();
 }

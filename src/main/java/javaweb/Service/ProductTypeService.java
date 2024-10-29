@@ -22,19 +22,21 @@ public class ProductTypeService {
 		return (List<ProductType>) repo.findByEnabledFalse();
 	}	
 	
-	public ProductType save(ProductType productType) {
-		productType.setEnabled(true);
-        return repo.save(productType);
+	public void save(ProductType productType) {
+		if (productType.getProductTypeID() != null) {
+		    ProductType productType_update = repo.findById(productType.getProductTypeID())
+		            .orElseThrow(() -> new RuntimeException("Không tìm thấy loại sản phẩm"));
+		    productType_update.setProductTypeName(productType.getProductTypeName());
+		    repo.save(productType_update);    
+		} else {
+		    productType.setEnabled(true);
+		    repo.save(productType);
+		}
+
     }
 	
 	public ProductType getById(Long id) {
 	    return repo.findById(id).orElse(null);
-	}
-
-	public ProductType update(ProductType productType) {   
-	    ProductType existingProductType = repo.findById(productType.getProductTypeID()).get();
-        existingProductType.setProductTypeName(productType.getProductTypeName());
-	    return repo.save(existingProductType);
 	}
 	
     public void hidden(Long id) {
@@ -50,12 +52,6 @@ public class ProductTypeService {
 	    	ProductType existingProductType = repo.findById(id).get();
 	    	existingProductType.setEnabled(true);
 	    	repo.save(existingProductType);
-	     }
-	}
-    
-    public void delete(Long id) {
-	    if (repo.existsById(id)) {
-	    	repo.deleteById(id);
 	     }
 	}
     
